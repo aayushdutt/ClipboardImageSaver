@@ -9,7 +9,7 @@
       background: #c9c0c0;
     "
   >
-    <h1>Save Image from Clipboard</h1>
+    <h1 style="margin-top: 30px;">Save Image from Clipboard</h1>
     <p>Press Ctrl+V to paste the image from your clipboard.</p>
 
     <button
@@ -29,7 +29,7 @@
       Save
     </button>
     <div>
-      <img style="text-align: center; max-width: 90vw" id="captured-image" />
+      <img style="text-align: center; max-width: 90vw;" id="captured-image" />
     </div>
     <script>
       // Get the captured-image and save-button elements
@@ -52,6 +52,7 @@
             var url = URL.createObjectURL(blob);
             // Set the src of the img element to the object URL
             imgElement.src = url;
+            imgElement.style.border = "1px solid black";
 
             // Create a download link for the image
             var downloadLink = document.createElement("a");
