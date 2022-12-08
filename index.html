@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <title>Image Capture</title>
+  </head>
+  <body
+    style="
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #c9c0c0;
+    "
+  >
+    <h1>Save Image from Clipboard</h1>
+    <p>Press Ctrl+V to paste the image from your clipboard.</p>
+
+    <button
+      id="save-button"
+      style="
+        background-color: #0a0a23;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 15px;
+        min-height: 30px;
+        min-width: 120px;
+        cursor: pointer;
+        margin-bottom: 10px;
+      "
+    >
+      Save
+    </button>
+    <div>
+      <img style="text-align: center; max-width: 90vw" id="captured-image" />
+    </div>
+    <script>
+      // Get the captured-image and save-button elements
+      var imgElement = document.getElementById("captured-image");
+      var saveButton = document.getElementById("save-button");
+
+      // Listen for the paste event on the document
+      document.addEventListener("paste", function (e) {
+        // Get the clipboard data
+        var data = e.clipboardData || window.clipboardData;
+        // Check if the clipboard data has any items
+        if (data && data.items) {
+          // Get the first item from the clipboard
+          var item = data.items[0];
+          // Check if the item is an image
+          if (item.type.indexOf("image") === 0) {
+            // Get the image as a blob
+            var blob = item.getAsFile();
+            // Create an object URL for the blob
+            var url = URL.createObjectURL(blob);
+            // Set the src of the img element to the object URL
+            imgElement.src = url;
+
+            // Create a download link for the image
+            var downloadLink = document.createElement("a");
+            downloadLink.href = url;
+            downloadLink.download = "clipboardImg.png";
+
+            // Attach the download link to the save button
+            saveButton.appendChild(downloadLink);
+
+            // Attach an event listener to the save button
+            saveButton.addEventListener("click", function (e) {
+              // Trigger the click event on the download link
+              downloadLink.click();
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
